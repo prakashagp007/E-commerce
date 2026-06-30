@@ -24,6 +24,11 @@ class User extends Authenticatable
         'password',
     ];
 
+    // app/Models/User.php - add this relationship
+public function cartItems()
+{
+    return $this->hasMany(CartItem::class);
+}
     /**
      * The attributes that should be hidden for serialization.
      *
