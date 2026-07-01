@@ -26,8 +26,9 @@ class CartController extends Controller
             ]);
         }
 
-        return view('frontend.home.home')->with('success', 'Product cart la add aagiduchu!');
-    }
+return redirect(url()->previous() . '#productcards')
+    ->with('success', 'Product cart la add aagiduchu!');
+        }
 
     // Show cart
     public function index()

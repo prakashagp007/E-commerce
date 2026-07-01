@@ -24,7 +24,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-            return view('frontend.home.home')->with('success', 'Login success!');
+            return redirect()->route('home')->with('success', 'Login success!');
         }
 
         return back()->withErrors(['email' => 'Email illa password thappu irukku.']);
@@ -51,7 +51,10 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return view('frontend.home.home');
+        $request->session()->regenerate();
+
+        return redirect()->route('home')
+            ->with('success', 'Registration successful!');
     }
 
     public function logout(Request $request)
@@ -59,6 +62,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
 }

@@ -1,8 +1,13 @@
-<div class="container mt-4">
+<div class="container mt-4" id="productcards">
 
     <h2 class="text-secondary text-center"> Our Products</h2>
 
     <div class="row">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
         @forelse($data as $product)
             <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
