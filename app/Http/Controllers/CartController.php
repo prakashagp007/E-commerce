@@ -9,26 +9,27 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
     // Add to cart
-    public function add(Request $request, $productId)
-    {
-        $existing = CartItem::where('user_id', Auth::id())
-                    ->where('product_id', $productId)
-                    ->first();
+public function add(Request $request, $productId)
+{
+    $qty = $request->quantity ?? 1;  // 👈 quantity support
 
-        if ($existing) {
-            $existing->quantity += 1;
-            $existing->save();
-        } else {
-            CartItem::create([
-                'user_id' => Auth::id(),
-                'product_id' => $productId,
-                'quantity' => 1,
-            ]);
-        }
+    $existing = CartItem::where('user_id', Auth::id())
+                ->where('product_id', $productId)
+                ->first();
 
-return redirect(url()->previous() . '#productcards')
-    ->with('success', 'Product cart la add aagiduchu!');
-        }
+    if ($existing) {
+        $existing->quantity += $qty;
+        $existing->save();
+    } else {
+        CartItem::create([
+            'user_id' => Auth::id(),
+            'product_id' => $productId,
+            'quantity' => $qty,
+        ]);
+    }
+
+    return back()->with('success', 'Product cart la add aagiduchu!');
+}
 
     // Show cart
     public function index()

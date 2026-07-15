@@ -18,12 +18,22 @@ class ProductController extends Controller
         return view('dashboard.dashboard', compact('data'));
     }
 
+public function singleproduct($slug)
+{
+    $product = Product::where('slug', $slug)->firstOrFail();
+
+return view('frontend.product_page.single_product', compact('product'));
+//  return route('product_single',compact('product'))
+}
+
     public function show($id)
     {
         $product = Product::findOrFail($id);
 
         return view('db_includes.product_view', compact('product'));
     }
+
+
 
 
     public function store(Request $request)

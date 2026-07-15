@@ -55,7 +55,7 @@
             <h4>Total: ₹{{ $total }}</h4>
         @endif
 
-        <a href="{{ route('home') }}" class="btn btn-primary">Continue Shopping</a>
+        <a href="{{ route('checkout.index') }}" class="btn btn-primary">Continue Shopping</a>
     </div>
 </body>
 

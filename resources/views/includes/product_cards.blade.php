@@ -12,45 +12,49 @@
         @forelse($data as $product)
             <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
 
-                <div class="product-card">
+                <a href="{{ route('singleproduct.show', $product->slug) }}" class="text-decoration-none">
 
-                    <div class="product-image">
+                    <div class="product-card">
 
-                        <img src="{{ asset('uploads/products/' . $product->image) }}" alt="{{ $product->name }}">
+                        <div class="product-image">
 
-                        @if ($product->status)
-                            <span class="status in-stock">In Stock</span>
-                        @else
-                            <span class="status out-stock">Out of Stock</span>
-                        @endif
+                            <img src="{{ asset('uploads/products/' . $product->image) }}" alt="{{ $product->name }}">
 
-                    </div>
-
-                    <div class="product-body">
-
-                        <h5>{{ $product->name }}</h5>
-
-                        <div class="price">
-                            ₹{{ number_format($product->price, 2) }}
-                        </div>
-
-                        <div class="product-meta">
-
-                            <span>
-                                <i class="bi bi-box-seam"></i>
-                                Qty : {{ $product->qty }}
-                            </span>
+                            @if ($product->status)
+                                <span class="status in-stock">In Stock</span>
+                            @else
+                                <span class="status out-stock">Out of Stock</span>
+                            @endif
 
                         </div>
 
-                        <form method="POST" action="{{ route('cart.add', $product->id) }}">
-                            @csrf
-                            <button type="submit" class="btn btn-warning">Add to Cart</button>
-                        </form>
+                        <div class="product-body">
+
+                            <h5>{{ $product->name }}</h5>
+
+                            <div class="price">
+                                ₹{{ number_format($product->price, 2) }}
+                            </div>
+
+                            <div class="product-meta">
+
+                                <span>
+                                    <i class="bi bi-box-seam"></i>
+                                    Qty : {{ $product->qty }}
+                                </span>
+
+                            </div>
+
+                            <form method="POST" action="{{ route('cart.add', $product->id) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-warning">Add to Cart</button>
+                            </form>
+
+                        </div>
 
                     </div>
 
-                </div>
+                </a>
 
             </div>
 

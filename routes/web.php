@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 
 
@@ -28,12 +29,14 @@ Route::post('/product/store',
 
 
     //actions
-
+Route::get('/singleproduct/{slug}', [ProductController::class, 'singleproduct'])->name('singleproduct.show');
 Route::get('/dashboard',[ProductController::class, 'dashboard'])->name('dashboard');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::delete('/product/{id}', [ProductController::class, 'delete'])->name('products.destroy');
 Route::get('/product/{id}/edit', [ProductController::class, 'edit'])
     ->name('products.edit');
+
+
 
 Route::put('/product/{id}', [ProductController::class, 'update'])
     ->name('products.update');
@@ -55,3 +58,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 });
+
+
+
+
+
+Route::middleware('auth')->group(function () {
+    // ... existing cart routes ...
+
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout/place', [CheckoutController::class, 'placeOrder'])->name('checkout.place');
+    Route::get('/order/success/{orderId}', [CheckoutController::class, 'success'])->name('order.success');
+});
+
+Route::post('/checkout/buy-now/{productId}', [CheckoutController::class, 'buyNow'])->name('checkout.buyNow');
