@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Str;
 
 
@@ -12,11 +13,18 @@ class ProductController extends Controller
 {
 
 
-    public function dashboard()
-    {
-        $data=Product::all();
-        return view('dashboard.dashboard', compact('data'));
-    }
+   public function dashboard()
+{
+    $data = Product::with('category')->get();
+    $categories = Category::all(); 
+    return view('dashboard.dashboard', compact('data', 'categories'));
+}
+
+public function create()
+{
+    $categories = Category::all();
+    return view('db_includes.product_create', compact('categories'));
+}
 
 public function singleproduct($slug)
 {
@@ -65,6 +73,8 @@ return view('frontend.product_page.single_product', compact('product'));
 
             'slug' => Str::slug($request->name),
 
+            'category_id' => $request->category_id,
+
             'price' => $request->price,
 
             'qty' => $request->qty,
@@ -80,11 +90,11 @@ return view('frontend.product_page.single_product', compact('product'));
         ->with('success','Product Added Successfully');
     }
 
-    public function edit($id)
+public function edit($id)
 {
     $product = Product::findOrFail($id);
-
-    return view('db_includes.product_edit', compact('product'));
+    $categories = Category::all();
+    return view('db_includes.product_edit', compact('product', 'categories'));
 }
 
 public function update(Request $request, $id)
@@ -119,6 +129,8 @@ public function update(Request $request, $id)
         'name' => $request->name,
 
         'slug' => \Illuminate\Support\Str::slug($request->name),
+
+        'category_id' => $request->category_id,
 
         'price' => $request->price,
 

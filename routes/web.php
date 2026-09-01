@@ -7,6 +7,8 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\Backend\CategoryController;
+
 
 
 
@@ -72,3 +74,15 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/checkout/buy-now/{productId}', [CheckoutController::class, 'buyNow'])->name('checkout.buyNow');
+
+
+//
+
+
+    // existing routes...
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('/categories/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('/categories/delete/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');

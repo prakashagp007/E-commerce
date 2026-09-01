@@ -55,7 +55,11 @@
             <h4>Total: ₹{{ $total }}</h4>
         @endif
 
-        <a href="{{ route('checkout.index') }}" class="btn btn-primary">Continue Shopping</a>
+        {{-- Continue Shopping — products page ku போகணும் --}}
+        <a href="{{ route('home') }}" class="btn btn-primary">Continue Shopping</a>
+
+        {{-- Checkout button தனியா வேணும் --}}
+        <a href="{{ route('checkout.index') }}" class="btn btn-warning fw-bold ms-2">Proceed to Checkout</a>
     </div>
 </body>
 

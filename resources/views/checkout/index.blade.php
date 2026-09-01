@@ -93,16 +93,28 @@
                 </div>
 
                 {{-- Right: Order Summary --}}
+                {{-- Right: Order Summary --}}
                 <div class="col-md-5">
                     <div class="card">
                         <div class="card-header"><strong>Order Summary</strong></div>
                         <div class="card-body">
-                            @foreach ($cartItems as $item)
+
+                            @if (isset($buyNow))
+                                {{-- Buy Now flow - single product only --}}
                                 <div class="d-flex justify-content-between mb-2">
-                                    <span>{{ $item->product->name }} × {{ $item->quantity }}</span>
-                                    <span>₹{{ number_format($item->product->price * $item->quantity, 2) }}</span>
+                                    <span>{{ $buyNow['product']->name }} × {{ $buyNow['quantity'] }}</span>
+                                    <span>₹{{ number_format($buyNow['total'], 2) }}</span>
                                 </div>
-                            @endforeach
+                            @else
+                                {{-- Normal Cart flow --}}
+                                @foreach ($cartItems as $item)
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>{{ $item->product->name }} × {{ $item->quantity }}</span>
+                                        <span>₹{{ number_format($item->product->price * $item->quantity, 2) }}</span>
+                                    </div>
+                                @endforeach
+                            @endif
+
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <strong>Total</strong>
@@ -116,6 +128,7 @@
                             <button type="submit" class="btn btn-warning w-100 fw-bold">
                                 Place Order
                             </button>
+
                         </div>
                     </div>
                 </div>

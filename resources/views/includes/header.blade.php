@@ -13,7 +13,7 @@
             <!-- Logo -->
             <div class="col-lg-2 col-md-3 col-6">
                 <a href="#" class="logo">
-                    ShopEase
+                    GP Shoopie
                 </a>
             </div>
 
@@ -42,11 +42,11 @@
                     @endguest
 
                     @auth
-                        <a href="{{ route('cart.index') }}"  class="btn btn-outline-dark">My Cart</a>
+                        <a href="{{ route('cart.index') }}" class="btn btn-outline-dark">My Cart</a>
 
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit"  class="btn btn-dark">Logout</button>
+                            <button type="submit" class="btn btn-dark">Logout</button>
                         </form>
                     @endauth
 

@@ -42,7 +42,7 @@
             </button>
 
             <button class="tab-btn" data-tab="orders">
-                Orders
+                Add Category
             </button>
 
             <button class="tab-btn" data-tab="reports">
@@ -99,11 +99,11 @@
 
         <section class="tab-content" id="orders">
 
-            <h2>Orders</h2>
+            <h2>Add Category</h2>
 
             <div class="box">
 
-                <p>Your Orders Page</p>
+                @include('db_includes.categories')
 
             </div>
 

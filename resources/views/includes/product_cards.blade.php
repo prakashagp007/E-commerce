@@ -2,6 +2,20 @@
 
     <h2 class="text-secondary text-center"> Our Products</h2>
 
+    {{-- Product list page la category filter buttons --}}
+    {{-- <div class="mb-4">
+        <a href="{{ route('home') }}"
+            class="btn btn-sm {{ !request('category') ? 'btn-dark' : 'btn-outline-dark' }} me-1">
+            All
+        </a>
+        @foreach ($categories as $cat)
+            <a href="{{ route('home', ['category' => $cat->id]) }}"
+                class="btn btn-sm {{ request('category') == $cat->id ? 'btn-dark' : 'btn-outline-dark' }} me-1">
+                {{ $cat->name }}
+            </a>
+        @endforeach
+    </div> --}}
+
     <div class="row">
         @if (session('success'))
             <div class="alert alert-success">

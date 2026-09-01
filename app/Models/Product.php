@@ -17,4 +17,9 @@ class Product extends Model
         'description',
         'status'
     ];
+    // app/Models/Product.php - relationship add pannunga
+public function category()
+{
+    return $this->belongsTo(Category::class);
+}
 }

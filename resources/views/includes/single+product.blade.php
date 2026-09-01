@@ -99,6 +99,27 @@
 
 <script>
     let qty = document.getElementById('quantity');
+    let qtyHidden = document.getElementById('quantity_hidden');
+
+    document.getElementById('plus').onclick = function() {
+        let val = parseInt(qty.value);
+        if (val < {{ $product->qty }}) {
+            qty.value = val + 1;
+            qtyHidden.value = val + 1;
+        }
+    }
+
+    document.getElementById('minus').onclick = function() {
+        let val = parseInt(qty.value);
+        if (val > 1) {
+            qty.value = val - 1;
+            qtyHidden.value = val - 1;
+        }
+    }
+</script>
+
+{{-- <script>
+    let qty = document.getElementById('quantity');
 
     document.getElementById('plus').onclick = function() {
         if (parseInt(qty.value) < {{ $product->qty }}) {
@@ -129,4 +150,4 @@
             document.getElementById('quantity_hidden').value = val - 1;
         }
     }
-</script>
+</script> --}}

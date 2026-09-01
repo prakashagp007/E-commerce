@@ -46,6 +46,20 @@
 
                     </div>
 
+                    {{-- Category dropdown - product form la add pannunga --}}
+                    <div class="mb-3">
+                        <label>Category</label>
+                        <select name="category_id" class="form-select" required>
+                            <option value="">-- Select Category --</option>
+                            @foreach ($categories as $cat)
+                                <option value="{{ $cat->id }}"
+                                    {{ old('category_id', $product->category_id ?? '') == $cat->id ? 'selected' : '' }}>
+                                    {{ $cat->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="mb-3">
 
                         <label>Price</label>

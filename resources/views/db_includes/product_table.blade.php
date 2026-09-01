@@ -1,83 +1,70 @@
-<div class="box">
-    <table>
+<div class="row g-3">
 
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
+    @forelse($data as $product)
 
-        <tbody>
+        <div class="col-xl-3 col-lg-4 col-md-6">
 
-            @forelse($data as $product)
-                <tr>
+            <div class="product-card">
 
-                    <td>{{ $loop->iteration }}</td>
+                <div class="thumb">
 
-                    <td>
-                        <img src="{{ asset('uploads/products/' . $product->image) }}" width="60" height="60"
-                            style="border-radius:8px; object-fit:cover;">
-                    </td>
+                    <img src="{{ asset('uploads/products/'.$product->image) }}">
 
-                    <td>{{ $product->name }}</td>
+                    <span class="{{ $product->status ? 'active' : 'inactive' }}">
+                        {{ $product->status ? 'Active' : 'Inactive' }}
+                    </span>
 
-                    <td>{{ $product->slug }}</td>
+                </div>
 
-                    <td>₹ {{ $product->price }}</td>
+                <div class="content">
 
-                    <td>{{ $product->qty }}</td>
+                    <h6>{{ $product->name }}</h6>
 
-                    <td>
-                        @if ($product->status)
-                            <span class="badge text-bg-success active">Active</span>
-                        @else
-                            <span class="badge text-bg-secondary inactive">Inactive</span>
-                        @endif
-                    </td>
+                    <small>{{ $product->slug }}</small>
 
-                    <td>
+                    <div class="details">
 
-                        <a href="{{ route('products.show', $product->id) }}" class="btn btn-primary btn-sm">
-                            <i class="bi bi-eye-fill"></i>
-                        </a>
-                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
+                        <span>₹{{ number_format($product->price) }}</span>
 
-                        <form action="{{ route('products.destroy', $product->id) }}" method="POST"
-                            style="display:inline-block;">
+                        <span>Stock : {{ $product->qty }}</span>
 
-                            @csrf
-                            @method('DELETE')
+                    </div>
 
-                            <button onclick="return confirm('Delete this product?')" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash3-fill"></i>
-                            </button>
+                </div>
 
-                        </form>
+                <div class="actions">
 
-                    </td>
+                    <a href="{{ route('products.show',$product->id) }}">
+                        <i class="bi bi-eye"></i>
+                    </a>
 
-                </tr>
+                    <a href="{{ route('products.edit',$product->id) }}">
+                        <i class="bi bi-pencil"></i>
+                    </a>
 
-            @empty
+                    <form action="{{ route('products.destroy',$product->id) }}" method="POST">
 
-                <tr>
-                    <td colspan="8" style="text-align:center;">
-                        No Products Found
-                    </td>
-                </tr>
-            @endforelse
+                        @csrf
+                        @method('DELETE')
 
-        </tbody>
+                        <button onclick="return confirm('Delete Product?')">
+                            <i class="bi bi-trash"></i>
+                        </button>
 
-    </table>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    @empty
+
+        <div class="col-12 text-center py-5">
+            No Products Found
+        </div>
+
+    @endforelse
 
 </div>

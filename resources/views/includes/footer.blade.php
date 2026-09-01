@@ -6,7 +6,7 @@
 
             <!-- About -->
             <div class="col-lg-4 col-md-6">
-                <h5>ShopEase</h5>
+                <h5>GP Shoopie</h5>
                 <p>
                     Your one-stop destination for quality products at the best prices.
                     Shop with confidence and enjoy fast delivery.
