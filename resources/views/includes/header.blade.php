@@ -1,3 +1,9 @@
+<!-- Top of file — -->
+@php
+    $categories = \App\Models\Category::all();
+    $cartCount = auth()->check() ? \App\Models\CartItem::where('user_id', auth()->id())->sum('quantity') : 0;
+@endphp
+
 <!-- Top Bar -->
 <div class="top-bar text-center">
     🚚 Free Shipping on Orders Above ₹999
@@ -42,7 +48,17 @@
                     @endguest
 
                     @auth
-                        <a href="{{ route('cart.index') }}" class="btn btn-outline-dark">My Cart</a>
+                        {{-- <a href="{{ route('cart.index') }}" class="btn btn-outline-dark">My Cart</a> --}}
+
+                        <a href="{{ route('cart.index') }}" class="btn btn-outline-dark position-relative">
+                            My Cart
+                            @if ($cartCount > 0)
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ $cartCount }}
+                                </span>
+                            @endif
+                        </a>
 
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
@@ -77,15 +93,25 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Categories
                         </a>
 
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Electronics</a></li>
-                            <li><a class="dropdown-item" href="#">Fashion</a></li>
-                            <li><a class="dropdown-item" href="#">Shoes</a></li>
-                            <li><a class="dropdown-item" href="#">Accessories</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+                            @forelse($categories as $category)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('category.show', $category->id) }}">
+                                        {{ $category->name }}
+                                    </a>
+                                </li>
+                            @empty
+                                <li>
+                                    <span class="dropdown-item text-muted">
+                                        No categories yet
+                                    </span>
+                                </li>
+                            @endforelse
                         </ul>
                     </li>
 

@@ -16,12 +16,26 @@ class FrontendController extends Controller
 public function home()
 {
     $categories = Category::all();
-    $categoryId = request('category');
+    $categoryId = request('category') ?? request('id'); // both support
 
     $data = Product::when($categoryId, function($q) use ($categoryId) {
         return $q->where('category_id', $categoryId);
-    })->get();
+    })->where('status', 1)->get();
 
-    return view('frontend.home.home', compact('data', 'categories'));
+    // Active category highlight ku
+    $activeCategory = $categoryId ? Category::find($categoryId) : null;
+
+    return view('frontend.home.home', compact('data', 'categories', 'activeCategory'));
+}
+
+public function categoryPage($id)
+{
+    $category = Category::findOrFail($id);
+    $products = Product::where('category_id', $id)->get(); // status filter remove panninen
+
+    // Debug — products irukka nu confirm pannu
+    // dd($products);
+
+    return view('frontend.category.category', compact('category', 'products'));
 }
 }

@@ -16,7 +16,7 @@ class ProductController extends Controller
    public function dashboard()
 {
     $data = Product::with('category')->get();
-    $categories = Category::all(); 
+    $categories = Category::all();
     return view('dashboard.dashboard', compact('data', 'categories'));
 }
 
@@ -73,7 +73,7 @@ return view('frontend.product_page.single_product', compact('product'));
 
             'slug' => Str::slug($request->name),
 
-            'category_id' => $request->category_id,
+            'category_id' => 'required|exists:categories,id',
 
             'price' => $request->price,
 

@@ -86,3 +86,4 @@ Route::post('/checkout/buy-now/{productId}', [CheckoutController::class, 'buyNow
     Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit');
     Route::put('/categories/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/delete/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::get('/category/{id}', [App\Http\Controllers\Frontend\FrontendController::class, 'categoryPage'])->name('category.show');
